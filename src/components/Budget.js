@@ -1,34 +1,32 @@
 
 import React, { useContext, useState } from 'react';
 import { AppContext } from '../context/AppContext';
-import EditBudget from "./EditBudget";
+//import EditBudget from "./EditBudget";
 const Budget = () => {
-    const { budget } = useContext(AppContext);
-    const [isEditing, setIsEditing] = useState(false);
-    const handleEditClick = () => {
-        setIsEditing(true);
+    let { budget } = useContext(AppContext);
+    const incBudget = () => {
+        if(useState.Budget <20000){
+            budget = budget + 10;
+        }
     }
-    const handleSaveClick = (value) => {
-		dispatch({
-			type: 'SET_BUDGET',
-			payload: value,
-		});
-		setIsEditing(false);
-	};
-
+    const decBudget = () => {
+        if(useState.Budget > 10){
+            budget = budget - 10;
+        }
+        
+    }
     return (
         <div className='alert alert-secondary'>
-            <span>Budget: £{budget}</span>
-            <div class='alert alert-secondary p-3 d-flex align-items-center justify-content-between'>
-			    {isEditing ? (
-				    <EditBudget handleSaveClick={handleSaveClick} budget={budget} />
-			    ) : (
-				// For part 1 render component inline rather than create a seperate one
-				    <ViewBudget handleEditClick={handleEditClick} budget={budget} />
-			    )}
-		    </div>
+            <span>Budget: £{budget}
+                <button type="button" onClick={incBudget}>+</button>
+                <button type="button" onClick={decBudget}>-</button>
+            </span>
+            {/* <span>
+                <button type="button" onClick={incBudget}>+</button>
+                <button type="button" onClick={decBudget}>-</button>
+            </span> */}
         </div>
-       
+   
     );
 };
 export default Budget;
