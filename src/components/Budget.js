@@ -1,30 +1,33 @@
 
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
-//import EditBudget from "./EditBudget";
+
 const Budget = () => {
     let { budget } = useContext(AppContext);
     const incBudget = () => {
-        if(useState.Budget <20000){
-            budget = budget + 10;
+        if(budget <20000){
+           budget = budget + 10;
         }
+        return budget;
     }
     const decBudget = () => {
-        if(useState.Budget > 10){
+        if(budget > 10){
             budget = budget - 10;
         }
+        dispatchEvent({
+            type: 'SET_BUDGET'
+        });
         
     }
     return (
         <div className='alert alert-secondary'>
-            <span>Budget: £{budget}
-                <button type="button" onClick={incBudget}>+</button>
-                <button type="button" onClick={decBudget}>-</button>
+            <span>
+                <div className= "input-group"> 
+                Budget: £{budget}
+                <button type="button" onClick={event => incBudget()}>+</button>
+                <button type="button" onClick={event => decBudget()}>-</button>
+                </div>
             </span>
-            {/* <span>
-                <button type="button" onClick={incBudget}>+</button>
-                <button type="button" onClick={decBudget}>-</button>
-            </span> */}
         </div>
    
     );
