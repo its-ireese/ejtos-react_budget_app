@@ -3,44 +3,45 @@ import React, { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 
 const Budget = () => {
-    let { budget, currency, setBudget} = useContext(AppContext);
- //   const { dispatch }= useContext(AppContext);
-    
-//     const incBudget = () => {
-//         if(budget < 20000){
-//             const expense = {
-//                 name: budget,
-//                 cost: 10,
-//             };
-//             dispatch({
-//                 type: 'ADD_EXPENSE',
-//                 payload: expense
-//             });
-//     }
-// }
+    let { budget, currency, expenses, dispatch} = useContext(AppContext);
+    const budgetMax = 20000; 
+    const totalExpenses = expenses.reduce((total, item) => {
+        return (total += item.cost);
+    }, 0);
 
-//     const decBudget = () => {
-//         if(budget > 10){
-//             const expense = {
-//                 name: budget,
-//                 cost: 10,
-//             };
-//             dispatch({
-//                 type: 'RED_EXPENSE',
-//                 payload: expense
-//         });
-        
-//     }
-// }
+    const changeBudget = (event) => {
+
+        const newBudget = Number(event.target.value);
+
+        if((Number.isNaN(newBudget)) && (!Number.isInteger(newBudget))) {
+            alert('Enter a valid budget');
+            return;
+        }
+
+        if(newBudget < totalExpenses){
+            alert("The expenses shouldn't be greater then the budget." + currency + totalExpenses);
+        }
+
+       else {if (newBudget > budgetMax){
+        alert("Enter a budget under " + budgetMax);
+        return;
+    }
+        dispatch({
+            type: 'SET_BUDGET',
+            payload: newBudget,
+        });
+    }
+};
+
     return (
-        <div className='alert alert-secondary'>
-            <span className="input-group-text" htmlFor="inputBudget">Budget: {currency}
-            <input type='number' id='budget' style={{ marginLeft: '2rem' , size: 10}} value={budget}
-            onRateChange={(event) => setBudget(event.target.budget)}>
+        <div className='alert alert-secondary' style={{ display: 'flex', alignItems: 'center'}}>
+            <div>
+                <label htmlFor="inputBudget">Budget: </label> 
+            </div>
+            <span>{currency}</span>
+            <input type='number' id='budget' value={budget}
+            onChange={changeBudget} step="10">
             </input>
-            {/* <button type="button" onClick={event => incBudget()}>+</button>
-            <button type="button" onClick={event => decBudget()}>-</button> */}
-            </span>
         </div>
    
     );
