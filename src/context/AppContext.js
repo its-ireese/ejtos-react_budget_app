@@ -82,6 +82,7 @@ export const AppReducer = (state, action) => {
 
 // 1. Sets the initial state when the app loads
 const initialState = {
+    
     budget: 4000,
     expenses: [
         { id: "Marketing", name: 'Marketing', cost: 60 },
@@ -101,6 +102,7 @@ export const AppContext = createContext();
 export const AppProvider = (props) => {
     // 4. Sets up the app state. takes a reducer, and an initial state
     const [state, dispatch] = useReducer(AppReducer, initialState);
+    
     let remaining = 0;
 
     if (state.expenses) {

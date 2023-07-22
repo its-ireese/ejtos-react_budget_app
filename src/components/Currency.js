@@ -29,7 +29,6 @@ const Currency = () => {
 
     }
 
-
 return (
     <div className='alert alert-info'>
         <label htmlFor="Currencies">Currencies: </label> 
