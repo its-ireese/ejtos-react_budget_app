@@ -19,7 +19,7 @@ const Budget = () => {
         }
 
         if(newBudget < totalExpenses){
-            alert("The expenses shouldn't be greater then the budget." + currency + totalExpenses);
+            alert("The budget shouldn't be less then the expenses " + currency + totalExpenses);
         }
 
        else {if (newBudget > budgetMax){
